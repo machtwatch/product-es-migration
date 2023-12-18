@@ -1,0 +1,216 @@
+{
+  "settings": {
+      "analysis": {
+        "normalizer": {
+          "name_sorting": {
+            "filter": [ "lowercase","asciifolding"]
+          },
+          "useLowercase": {
+            "type": "custom",
+            "filter": [ "lowercase" ]
+          }
+        },
+        "analyzer": {
+          "comma_delimeter": {
+            "type": "keyword",
+            "tokenizer": "comma_token",
+            "filter": ["lowercase", "trim"]
+          }
+        },
+        "tokenizer": {
+          "comma_token": {
+            "type": "pattern",   
+            "pattern": ",",
+            "filter": [
+              "trim",
+              "lowercase"
+            ]
+          }
+        }
+      }
+  },
+  "mappings": {
+    "dynamic": "strict",
+    "properties": {
+        "id": {
+          "type": "long"
+        },
+        "name": {
+          "type": "text",
+          "fields": {
+            "keyword": { 
+              "type": "keyword"
+            },
+            "sort":{
+              "type": "keyword",
+              "normalizer": "name_sorting"
+            }
+          }
+        },
+        "sku": {
+          "type": "keyword"
+        },
+        "gender": {
+          "type": "keyword"
+        },
+        "gender_id": {
+          "type": "integer"
+        },
+        "is_out_of_stock": {
+          "type": "integer"
+        },
+        "tags": {
+          "type": "text"
+        },
+        "tags_lowercase_arr": {
+            "type": "keyword"
+        },
+        "description": {
+          "type": "text"
+        },
+        "type": {
+          "type": "keyword"
+        },
+        "type_id": {
+          "type": "integer"
+        },
+        "parent_type": {
+          "type": "keyword"
+        },
+        "parent_type_id": {
+          "type": "integer"
+        },
+        "handle": {
+          "type": "keyword"
+        },
+        "slug": {
+          "type": "keyword"
+        },
+        "published_date": {
+          "type": "date",
+          "format": "strict_date_optional_time"
+        },
+        "created_date": {
+          "type": "date",
+          "format": "strict_date_optional_time"
+        },
+        "updated_date": {
+          "type": "date",
+          "format": "strict_date_optional_time"
+        },
+        "product_group_id": {
+          "type": "long"
+        },
+        "is_pre_order": {
+          "type": "boolean"
+        },
+        "color": {
+          "type": "text"
+        },
+        "colors_lowercase_arr": {
+            "type": "keyword"
+        },
+        "brand": {
+          "properties": {
+            "id": {
+              "type": "long"
+            },
+            "name": {
+              "type": "text",
+              "fields": {
+                "keyword": { 
+                  "type": "keyword"
+                }
+              }
+            },
+            "is_shop_by_whatsapp": {
+              "type": "boolean"
+            }
+          }
+        },
+        "selected_variant":{
+          "properties": {
+           "id": {
+              "type": "long"
+            },
+            "sku": {
+              "type": "keyword"
+            },
+            "variant_option1_value": {
+              "type": "keyword"
+            }, 
+            "variant_option2_value": {
+              "type": "keyword"
+            },
+            "our_price": {
+              "type": "float"
+            },
+            "retail_price": {
+              "type": "float"
+            },
+            "stock": {
+              "type": "integer"
+            },
+            "discount": {
+              "type": "integer"
+            },
+            "idx": {
+              "type": "integer"
+            }
+          }
+        },
+        "variants": {
+          "type": "nested",
+          "properties": {
+            "id": {
+              "type": "long"
+            },
+            "sku": {
+              "type": "keyword"
+            },
+            "variant_option1_value": {
+              "type": "keyword",
+              "fields": {
+                "lower": { 
+                  "type": "keyword",
+                  "normalizer":"useLowercase"
+                }
+              }
+            }, 
+            "variant_option2_value": {
+              "type": "keyword"
+            },
+            "our_price": {
+              "type": "float"
+            },
+            "retail_price": {
+              "type": "float"
+            },
+            "stock": {
+              "type": "integer"
+            },
+            "discount": {
+              "type": "integer"
+            },
+            "idx": {
+              "type": "integer"
+            }
+          }
+        },
+        "images": {
+          "type": "nested",
+          "properties": {
+            "id": {
+              "type": "long"
+            },
+            "src": {
+              "type": "text"
+            },
+            "idx": {
+              "type": "integer"
+            }
+          }
+        }
+    }
+  }
+}
