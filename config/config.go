@@ -37,29 +37,6 @@ func isFileExist(path string) bool {
 // Otherwise it will set from system's ENV variables.
 // Filename should be and env file: .env or .env.* file.
 // Dirpath should be in this format: /some/dirpath.
-func SelectConfig(environment string) error {
-
-	switch environment {
-	case "local":
-		SetConfig(".", "local.env")
-		return nil
-	case "development":
-		SetConfig(".", "development.env")
-		return nil
-	case "staging":
-		SetConfig(".", "staging.env")
-		return nil
-	default:
-		return errors.New("environment is not defined")
-	}
-
-}
-
-// SetConfig will set config from .env file if it's exist
-//
-// Otherwise it will set from system's ENV variables.
-// Filename should be and env file: .env or .env.* file.
-// Dirpath should be in this format: /some/dirpath.
 func SetConfig(dirpath string, filename string) {
 	filePath := filepath.Join(dirpath, filename)
 	fileExist := isFileExist(filePath)

@@ -15,11 +15,20 @@ setup: # set up the necessary dependencies and configurations required for devel
 	@echo "\n🔎 Setting up repo requirements...\n"
 	@.dev/setup.sh
 
-.PHONY: env
+.PHONY: env-local
+env: # generate local .env files from vault 
+	@echo "Generating local .env file.."
+	@.dev/generate-env.sh $(GITHUB_TOKEN) $(service_name) local
+	
+.PHONY: env-dev
 env: # generate development .env files from vault 
-	@echo "Generating .env file.."
-	@.dev/generate-env.sh $(GITHUB_TOKEN) $(service_name) development
+        @echo "Generating development .env file.."
+        @.dev/generate-env.sh $(GITHUB_TOKEN) $(service_name) development
 
+.PHONY: env-staging
+env: # generate staging .env files from vault 
+        @echo "Generating staging .env file.."
+        @.dev/generate-env.sh $(GITHUB_TOKEN) $(service_name) staging
 
 .PHONY: create-index
 create-index: # create index base on environment ELASTICSEARCH_PRODUCT_INDEX
